@@ -1,0 +1,35 @@
+/* bugSolution.css */
+.container::before {
+  content: url('fallback.png'); /* Fallback image */
+  content: url('image.png') /* Primary image url */
+}
+
+.container::after {
+  content: attr(data-text, ''); /* Default value if attribute is missing */
+}
+
+/* fallback image in case of error */
+.container img {
+  display:none
+}
+
+.container::before {
+  content: url('image.png');
+  background-image: url('image.png'); /* secondary way of rendering for fallback*/
+}
+
+/* Error handling for missing or unexpected attributes */
+[data-text]:not([data-text=''])::after {
+  content: attr(data-text);
+}
+
+/* fallback image in case the image doesn't load */
+img.lazy {
+  display: block; 
+}
+img.lazy[src]{ 
+  display: none; 
+} 
+img.lazy:not([src]) { 
+  display: block; 
+} 
